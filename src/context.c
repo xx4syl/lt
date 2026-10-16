@@ -4,12 +4,21 @@
 
 #define nil ((void *)0)
 
-typedef uint64_t LtValue;
+typedef enum {
+	VALUE_VOID,
+	VALUE_BOOLEAN,
+	VALUE_NUMBER,
+	VALUE_STRING,
+	VALUE_HEAP,
+} LtValueType;
+
+typedef struct {
+	LtValueType type;
+} LtValue;
 
 struct lt_context {
 	struct {
-		LtValue *array;
-		size_t count, size;
+		LtValue *start, *top, *end;
 	} stack;
 
 	LtRealloc realloc;
